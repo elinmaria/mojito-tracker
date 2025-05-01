@@ -1,6 +1,7 @@
 
 body {
     margin: 0;
+    padding-bottom: 100px; /* Give space for the mascot footer */
     font-family: 'Chewy', cursive;
 }
 .background {
@@ -124,11 +125,23 @@ body {
   50% { text-shadow: 0 0 15px gold; }
   100% { text-shadow: 0 0 5px yellow; }
 }
+
+
 .footer-mascot {
-    position: sticky;
-    bottom: 0;
-    width: 100%;
-    z-index: 999;
+  position: fixed; /* or absolute if needed */
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 999;
+  overflow: hidden;
+}
+
+.footer-mascot img {
+  width: 100%;
+  max-width: none;
+  display: block;
+  object-fit: cover;
+  animation: waveBounce 2.5s infinite ease-in-out;
 }
 
 @keyframes waveBounce {
@@ -138,9 +151,50 @@ body {
     75% { transform: translateY(-3px) rotate(-1deg); }
 }
 
-.footer-mascot img {
+@media (max-width: 768px) {
+  .player-row {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .player-name {
     width: 100%;
-    max-width: none;
-    display: block;
-    animation: waveBounce 3s infinite ease-in-out;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .score-box {
+    width: 40px;
+    height: 30px;
+    font-size: 16px;
+  }
+
+  .btn {
+    width: 35px;
+  }
+
+  .logo {
+    width: 120px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .leaderboard-label {
+    font-size: 18px;
+  }
+
+  .leaderboard {
+    font-size: 16px;
+  }
+
+  .leaderboard div {
+    font-size: 16px;
+  }
+
+  .leaderboard div:first-child {
+    font-size: 20px;
+  }
 }
+
