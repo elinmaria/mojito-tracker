@@ -4,7 +4,7 @@ from firebase_admin import credentials, db
 
 app = Flask(__name__)
 
-cred = credentials.Certificate("firebase-secret.json")
+cred = credentials.Certificate("/etc/secrets/firebase-secret.json")
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://mojito-maestro-default-rtdb.europe-west1.firebasedatabase.app/'  # ← update this line!
 })
