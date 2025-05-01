@@ -1,12 +1,15 @@
 from flask import Flask, render_template, request, jsonify
-import firebase_admin
+import firebase_admin, os
 from firebase_admin import credentials, db
 
 app = Flask(__name__)
 
-cred = credentials.Certificate("/etc/secrets/firebase-secret.json")
+# Use Render secret path if it exists, else fallback to local file
+cred_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "firebase-secret.json")
+
+cred = credentials.Certificate(cred_path)
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://mojito-maestro-default-rtdb.europe-west1.firebasedatabase.app/'  # ← update this line!
+    'databaseURL': 'https://mojito-maestro-default-rtdb.europe-west1.firebasedatabase.app'
 })
 
 @app.route('/')
