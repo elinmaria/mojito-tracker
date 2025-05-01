@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mojito Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo">
+
+
+        <div class="tracker">
+            {% for name in names %}
+            <div class="player-row">
+                <div class="player-name">{{ name }}</div>
+                <img src="{{ url_for('static', filename='img/minbutton.png') }}" class="btn" onclick="update('{{ name }}', -1)">
+                <div class="score-box" id="score-{{ name|replace(' ', '') }}">0</div>
+                <img src="{{ url_for('static', filename='img/plusbutton.png') }}" class="btn" onclick="update('{{ name }}', 1)">
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="leaderboard-label">LEADERBOARD</div>
+
+        <div class="leaderboard-section">
+            <img src="{{ url_for('static', filename='img/Plank-leaderboard.png') }}" class="leaderboard-bg">
+            <div class="leaderboard" id="leaderboard"></div>
+        </div>
+
+ <div class="footer-mascot">
+        <img src="{{ url_for('static', filename='img/Top-layers.png') }}" alt="mascot">
+    </div>
+
+    </div>
+
+    <script>
+        let scores = {};
+
+        async function loadScores() {
+            const res = await fetch('/get-scores');
+            scores = await res.json() || {};
+            for (const [name, score] of Object.entries(scores)) {
+                const id = 'score-' + name.replace(/\s/g, '');
+                const box = document.getElementById(id);
+                if (box) box.innerText = score;
+            }
+            updateLeaderboard();
+        }
+
+        async function update(name, change) {
+            const id = 'score-' + name.replace(/\s/g, '');
+            scores[name] = (scores[name] || 0) + change;
+            if (scores[name] < 0) scores[name] = 0;
+            document.getElementById(id).innerText = scores[name];
+
+            await fetch('/update-score', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    player: name,
+                    new_score: scores[name]
+                })
+            });
+
+            updateLeaderboard();
+        }
+
+        function updateLeaderboard() {
+            const leaderboard = document.getElementById("leaderboard");
+            const ranked = Object.entries(scores)
+                .map(([name, score]) => ({ name, score }))
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 3);
+            leaderboard.innerHTML = ranked
+                .map((p, i) => `<div>${i + 1}. ${p.name}: ${p.score}</div>`)
+                .join('');
+        }
+
+        loadScores();
+    </script>
+</body>
+</html>

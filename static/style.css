@@ -1,0 +1,146 @@
+
+body {
+    margin: 0;
+    font-family: 'Chewy', cursive;
+}
+.background {
+    background: url("../static/img/Background.png") no-repeat center center fixed;
+    background-size: cover;
+    padding: 0px;
+}
+@keyframes logoBounceIn {
+  0% {
+    transform: scale(0.2) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(2deg);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(0.95) rotate(-2deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.logo {
+  width: 200px;
+  display: block;
+  margin: auto;
+  animation: logoBounceIn 1.8s ease-in-out;
+}
+
+.title {
+    text-align: center;
+    font-size: 36px;
+    color: white;
+    -webkit-text-stroke: 2px black;
+}
+.tracker {
+    margin-top: 20px;
+}
+.player-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+}
+.player-name {
+    width: 180px;
+    font-size: 20px;
+    text-align: right;
+    margin-right: 10px;
+    color: white;
+    -webkit-text-stroke: 1px black;
+}
+.btn {
+  width: 40px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.btn:active {
+  transform: scale(1.2);
+}
+
+.score-box {
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+.leaderboard-label {
+    font-family: 'Chewy', cursive;
+    color: #FFFF00;
+    -webkit-text-stroke: 2px black;
+    font-size: 28px;
+    margin-top: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+.leaderboard-section {
+    position: relative;
+    margin-top: 5px;
+    text-align: center;
+}
+.leaderboard-bg {
+    width: 90%;
+    max-width: 350px;
+}
+.leaderboard {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    font-size: 20px;
+    color: white;
+    -webkit-text-stroke: 1px black;
+    font-weight: bold;
+}
+.leaderboard div {
+    font-family: 'Chewy', cursive;
+    margin: 24px 0;
+    animation: bounceIn 0.5s ease;
+    font-size: 20px;
+}
+.leaderboard div:first-child {
+    font-size: 24px;
+    color: gold;
+    animation: sparkle 1s infinite alternate, bounceIn 0.5s ease;
+}
+@keyframes bounceIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); }
+}
+@keyframes sparkle {
+  0% { text-shadow: 0 0 5px yellow; }
+  50% { text-shadow: 0 0 15px gold; }
+  100% { text-shadow: 0 0 5px yellow; }
+}
+.footer-mascot {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+@keyframes waveBounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-5px) rotate(-1deg); }
+    50% { transform: translateY(3px) rotate(1deg); }
+    75% { transform: translateY(-3px) rotate(-1deg); }
+}
+
+.footer-mascot img {
+    width: 100%;
+    max-width: none;
+    display: block;
+    animation: waveBounce 3s infinite ease-in-out;
+}
